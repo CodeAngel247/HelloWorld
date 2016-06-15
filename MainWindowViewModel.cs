@@ -8,7 +8,15 @@ namespace Porcupine.Plugin
 {
     public class MainWindowViewModel
     {
+        /*private string _companyName;
+        private int _companyNumber;
 
+        public MainWindowViewModel(string companyName, int companyNumber)
+        {
+            _companyName = companyName;
+            _companyNumber = companyNumber;
+        }
+       */
         private string windowTitle;
         public string WindowTitle
         {
