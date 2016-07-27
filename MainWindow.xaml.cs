@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,26 +13,62 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Porcupine.Plugin
+
+namespace Strike2
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    /// 
+
     public partial class MainWindow : Window
     {
+        private MainWindowViewModel mainWindowViewModel;
+        public MainWindowViewModel MainWindowViewModel
+        {
+                   get
+                   {
+                       return mainWindowViewModel;
+                   }
+                    set
+                    { 
+                        mainWindowViewModel = value; 
+                    }
+         }
+
+        public string MyTitle 
+        { 
+            get { return "Strike2"; } 
+            set { mainWindowViewModel.WindowTitle = value; } 
+        }
+
+
         public MainWindow()
         {
             InitializeComponent();
+            this.Loaded += new RoutedEventHandler(PageLoaded);
+            var customerRetrievalServiceFacade = new CustomerRetrievalServiceFacade();
+            mainWindowViewModel = new MainWindowViewModel(MyTitle);
+            this.DataContext = mainWindowViewModel;
+            var Button = new Button();
+            this.Button.Click += new RoutedEventHandler(ButtonClick);
+            var customerViewModel = mainWindowViewModel.CustomerViewModel;
+       //     var customerService = new CustomerService(customerViewModel);
 
         }
 
-        public MainWindow(MainWindowViewModel viewModel)
-            : this()
+        void ButtonClick(object sender, RoutedEventArgs e)
         {
-            DataContext = viewModel;
+            var repository = new CustomerLoader().LoadCustomers();
+            var retrieveData = new SpreadsheetService();
         }
 
+         
+        void PageLoaded(object sender, RoutedEventArgs e)
+        {
+            Customer customer = new Customer(true, "Emily", 45, false, 10, "Embarassing");
+        }
+
+        private void ListViewEmployeeDetails_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+        }
+
+  
     }
-   
 }
