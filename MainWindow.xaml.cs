@@ -34,8 +34,14 @@ namespace Strike2
 
         public string MyTitle 
         { 
-            get { return "Strike2"; } 
-            set { mainWindowViewModel.WindowTitle = value; } 
+                get 
+                { 
+                    return "Strike2"; 
+                } 
+                set 
+                { 
+                    mainWindowViewModel.WindowTitle = value; 
+                } 
         }
 
 
